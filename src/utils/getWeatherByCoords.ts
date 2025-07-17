@@ -1,9 +1,10 @@
 import { fetchWeatherApi } from "openmeteo";
 
 const params = {
-  latitude: 52.52,
-  longitude: 13.41,
+  latitude: 59.4542592,
+  longitude: 18.087936,
   hourly: "temperature_2m",
+  daily: "weather_code,temperature_2m_max,temperature_2m_min",
 };
 const url = "https://api.open-meteo.com/v1/forecast";
 const responses = await fetchWeatherApi(url, params);
@@ -30,7 +31,20 @@ const weatherData = {
   },
 };
 
+const formatter = new Intl.DateTimeFormat("en-GB", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
+
+const now = new Date();
+now.setHours(now.getHours() - 1);
+
 // `weatherData` now contains a simple structure with arrays for datetime and weather data
-for (let i = 0; i < weatherData.hourly.time.length; i++) {
-  console.log(weatherData.hourly.time[i].toISOString(), weatherData.hourly.temperature2m[i]);
+for (let i = 0; i < 24 + now.getHours(); i++) {
+  const time = weatherData.hourly.time[i];
+  if (time > now) {
+    const formattedTime = formatter.format(time);
+    console.log(formattedTime, Math.round(weatherData.hourly.temperature2m[i]));
+  }
 }
