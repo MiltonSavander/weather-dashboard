@@ -1,11 +1,14 @@
+import getHoursWeatherIconfromCode from "@/utils/getHoursWeatherIconfromCode";
 import { WeatherByHour } from "@/utils/types";
 import React from "react";
 
-function HourForcast({ time, weatherCode, temp }: WeatherByHour) {
+type HourForecastProps = WeatherByHour & { sunset: string; sunrise: string };
+
+function HourForcast({ time, weatherCode, temp, sunset, sunrise }: HourForecastProps) {
   return (
     <div className="flex flex-col  items-center bg-gray-700">
       <div>{time}</div>
-      <div>{weatherCode}</div>
+      {getHoursWeatherIconfromCode(weatherCode, time, sunset, sunrise)}
       <div>{temp}°C</div>
     </div>
   );

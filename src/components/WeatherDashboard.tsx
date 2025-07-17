@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import Location from "@/components/Location";
 import HoursForcastContainer from "@/components/HoursForcastContainer";
 import { getUserCoords } from "@/utils/getUserCoords";
+import { WeatherByDay, WeatherByHour } from "@/utils/types";
+import { getWeatherByCoords } from "@/utils/getWeatherByCoords";
 
 type Coords = {
   latitude: number;
@@ -12,6 +14,8 @@ type Coords = {
 function WeatherDashboard() {
   const [coords, setCoords] = useState<Coords | null>(null);
   const [userCity, setUserCity] = useState<string | null>(null);
+  const [weatherHourArray, setWeatherHourArray] = useState<WeatherByHour[]>([]);
+  const [weatherDailyArray, setWeatherDailyArray] = useState<WeatherByDay[]>([]);
 
   const [foundCoords, setFoundCoords] = useState<true | false>(false);
 
@@ -65,6 +69,26 @@ function WeatherDashboard() {
   }, [foundCoords]);
 
   useEffect(() => {
+    if (coords) {
+      const fetchWeather = async () => {
+        try {
+          const [hourWeather, dailyWeather] = await getWeatherByCoords(
+            coords.latitude,
+            coords.longitude,
+            19
+          );
+          setWeatherHourArray(hourWeather);
+          setWeatherDailyArray(dailyWeather);
+          console.log(hourWeather);
+        } catch (err: any) {
+          console.error("Failed to get weather by coords", err);
+        }
+      };
+      fetchWeather();
+    }
+  }, [coords]);
+
+  useEffect(() => {
     if (userCity) {
       console.log(userCity);
     }
@@ -78,7 +102,10 @@ function WeatherDashboard() {
         setUserCity={setUserCity}
       />
       <hr className=" bg-amber-500" />
-      <HoursForcastContainer coords={coords} />
+      <HoursForcastContainer
+        weatherArray={weatherHourArray}
+        weatherDailyArray={weatherDailyArray}
+      />
     </main>
   );
 }

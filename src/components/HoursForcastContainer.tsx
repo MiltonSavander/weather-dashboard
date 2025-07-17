@@ -3,25 +3,15 @@ import React, { useEffect, useState } from "react";
 import HourForcast from "./HourForcast";
 import { getWeatherByCoords } from "@/utils/getWeatherByCoords";
 import { Coords } from "@/utils/types";
-import { WeatherByHour } from "@/utils/types";
+import { WeatherByHour, WeatherByDay } from "@/utils/types";
 
-function HoursForcastContainer({ coords }: { coords: Coords | null }) {
-  const [weatherArray, setWeatherArray] = useState<WeatherByHour[]>([]);
+interface HoursForcastContainerProps {
+  weatherArray: WeatherByHour[];
+  weatherDailyArray: WeatherByDay[];
+}
 
-  useEffect(() => {
-    if (coords) {
-      const fetchWeather = async () => {
-        try {
-          const weather = await getWeatherByCoords(coords.latitude, coords.longitude, 15);
-          setWeatherArray(weather);
-          console.log(weather);
-        } catch (err: any) {
-          console.error("Failed to get weather by coords", err);
-        }
-      };
-      fetchWeather();
-    }
-  }, [coords]);
+function HoursForcastContainer({ weatherArray, weatherDailyArray }: HoursForcastContainerProps) {
+  console.log("this is length of weatherarray", weatherArray.length);
   return (
     <div className="w-full flex gap-5 bg-gray-900">
       {weatherArray.map((weather, index) => (
@@ -30,6 +20,8 @@ function HoursForcastContainer({ coords }: { coords: Coords | null }) {
           time={weather.time}
           weatherCode={weather.weatherCode}
           temp={weather.temp}
+          sunset={weatherDailyArray[0].sunset}
+          sunrise={weatherDailyArray[0].sunrise}
         />
       ))}
     </div>
