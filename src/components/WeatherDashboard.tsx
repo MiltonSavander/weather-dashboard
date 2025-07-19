@@ -5,6 +5,7 @@ import HoursForcastContainer from "@/components/HoursForcastContainer";
 import { getUserCoords } from "@/utils/getUserCoords";
 import { WeatherByDay, WeatherByHour } from "@/utils/types";
 import { getWeatherByCoords } from "@/utils/getWeatherByCoords";
+import TempChart from "@/components/TempChart";
 
 type Coords = {
   latitude: number;
@@ -95,17 +96,20 @@ function WeatherDashboard() {
   }, [userCity]);
 
   return (
-    <main className="w-7xl h-[600px] bg-card rounded-2xl p-8 m-2 flex flex-col gap-2">
+    <main className="w-7xl h-[600px] bg-card rounded-2xl p-8 m-2 flex flex-col items-start gap-2">
       <Location
         setCoords={setCoords}
         userCity={userCity}
         setUserCity={setUserCity}
       />
       <hr className=" bg-amber-500" />
-      <HoursForcastContainer
-        weatherArray={weatherHourArray}
-        weatherDailyArray={weatherDailyArray}
-      />
+      <div className="flex flex-col gap-4 items-start">
+        <HoursForcastContainer
+          weatherArray={weatherHourArray}
+          weatherDailyArray={weatherDailyArray}
+        />
+        <TempChart weatherArray={weatherHourArray} />
+      </div>
     </main>
   );
 }

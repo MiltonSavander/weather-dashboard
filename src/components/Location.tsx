@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const cities = [
   { name: "Stockholm", lat: 59.3293, lon: 18.0686 },
@@ -8,7 +8,13 @@ const cities = [
   { name: "Uppsala", lat: 59.8586, lon: 17.6389 },
 ];
 
-function Location({ setCoords, userCity, setUserCity }) {
+interface LocationProps {
+  setCoords: (coords: { latitude: number; longitude: number }) => void;
+  userCity: string | null;
+  setUserCity: (city: string) => void;
+}
+
+function Location({ setCoords, userCity, setUserCity }: LocationProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleCitySelect = (city: { name: string; lat: number; lon: number }) => {
