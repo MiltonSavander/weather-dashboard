@@ -17,7 +17,7 @@ function TempChart({ weatherArray }: { weatherArray: WeatherByHour[] }) {
   const maxTemp = Math.max(...weatherArray.map((item) => item.temp));
 
   return (
-    <div className="w-full h-20 pl-[26px] pr-[26px] ">
+    <div className="w-full h-20 mb-4 pl-[26px] pr-[26px] ">
       <ResponsiveContainer
         width="100%"
         height="100%"

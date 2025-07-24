@@ -77,7 +77,7 @@ function WeatherDashboard() {
           const [hourWeather, dailyWeather] = await getWeatherByCoords(
             coords.latitude,
             coords.longitude,
-            17
+            24
           );
           setWeatherHourArray(hourWeather);
           setWeatherDailyArray(dailyWeather);
@@ -104,13 +104,15 @@ function WeatherDashboard() {
         setUserCity={setUserCity}
       />
       <hr className=" bg-amber-500" />
-      <div className="w-full overflow-x-auto ">
-        <div className="flex flex-col gap-4 w-max items-start">
-          <HoursForcastContainer
-            weatherArray={weatherHourArray}
-            weatherDailyArray={weatherDailyArray}
-          />
-          <TempChart weatherArray={weatherHourArray} />
+      <div className="scrolllable-container w-full overflow-x-auto ">
+        <div className="wrapper inline-block w-max">
+          <div className="flex flex-col gap-4 w-max items-start">
+            <HoursForcastContainer
+              weatherArray={weatherHourArray}
+              weatherDailyArray={weatherDailyArray}
+            />
+            <TempChart weatherArray={weatherHourArray} />
+          </div>
         </div>
       </div>
       <DailyForcastsContainer weatherDailyArray={weatherDailyArray} />
