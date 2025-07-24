@@ -124,7 +124,10 @@ function WeatherDashboard() {
         userCity={userCity}
         setUserCity={setUserCity}
       /> */}
-      <LocationSearchBox onSelectLocation={handleLocationSelect} />
+      <LocationSearchBox
+        onSelectLocation={handleLocationSelect}
+        userCity={userCity}
+      />
       <hr className=" bg-amber-500" />
       <div
         className="scrollable-container scroll-smooth w-full max-w-full overflow-x-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info"

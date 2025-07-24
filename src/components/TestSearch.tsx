@@ -8,8 +8,10 @@ type LocationSuggestion = {
 
 export default function LocationSearchBox({
   onSelectLocation,
+  userCity,
 }: {
   onSelectLocation: (lat: number, lon: number, name: string) => void;
+  userCity: string;
 }) {
   const [query, setQuery] = useState("");
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
@@ -117,7 +119,7 @@ export default function LocationSearchBox({
         ref={inputRef}
         type="text"
         className="w-full border border-gray-300 rounded p-2"
-        placeholder={currentLocation ? currentLocation : "Search location..."}
+        placeholder={currentLocation ? currentLocation : userCity ? userCity : "Search location..."}
         value={query}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
