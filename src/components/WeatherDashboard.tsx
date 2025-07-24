@@ -32,7 +32,7 @@ function WeatherDashboard() {
         });
         setFoundCoords(true);
         console.log("position", position);
-      } catch (err: unknown) {
+      } catch (err) {
         console.error("Failed to getUserCoords", err);
       }
     };
@@ -63,7 +63,7 @@ function WeatherDashboard() {
           setUserCity(locationName);
           console.log("hello", data);
         }
-      } catch (err: unknown) {
+      } catch (err) {
         setUserCity("Could not find location");
         console.error("Failed to get city from coords", err);
       }

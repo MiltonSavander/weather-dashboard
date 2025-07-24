@@ -1,4 +1,3 @@
-import Image from "next/image";
 import WeatherDashboard from "@/components/WeatherDashboard";
 
 export default function Home() {

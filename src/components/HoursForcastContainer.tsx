@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import HourForcast from "./HourForcast";
-import { getWeatherByCoords } from "@/utils/getWeatherByCoords";
-import { Coords } from "@/utils/types";
 import { WeatherByHour, WeatherByDay } from "@/utils/types";
 
 interface HoursForcastContainerProps {

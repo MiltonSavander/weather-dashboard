@@ -1,16 +1,7 @@
 "use client";
 import { WeatherByHour } from "@/utils/types";
 import React from "react";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-
-const data = [
-  { time: "12:00", temperature: 21 },
-  { time: "13:00", temperature: 22 },
-  { time: "14:00", temperature: 23 },
-  { time: "15:00", temperature: 21 },
-  { time: "16:00", temperature: 22 },
-  { time: "17:00", temperature: 23 },
-];
+import { LineChart, Line, YAxis, ResponsiveContainer } from "recharts";
 
 function TempChart({ weatherHourArray }: { weatherHourArray: WeatherByHour[] }) {
   const minTemp = Math.min(...weatherHourArray.map((item) => item.temp));
