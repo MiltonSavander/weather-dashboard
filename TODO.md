@@ -3,28 +3,28 @@
 ## Core Components
 
 - [ ] **WeatherDashboard**  
-      Main dashboard component to display weather data.
+       Main dashboard component to display weather data.
 
 - [ ] **Loading**  
-      Component to show loading state during API calls.
+       Component to show loading state during API calls.
 
-- [ ] **Location**  
-      Component to select or display current location.
+- [x] **Location**  
+       Component to select or display current location.
 
-- [ ] **HourForecastCard**  
-      Card to display hourly weather forecast.
+- [x] **HourForecastCard**  
+       Card to display hourly weather forecast.
 
-- [ ] **TempGraph**  
-      Graph to visualize temperature trends.
+- [x] **TempGraph**  
+       Graph to visualize temperature trends.
 
-- [ ] **DayForecastCard**  
-      Card to display daily weather forecast.
+- [x] **DayForecastCard**  
+       Card to display daily weather forecast.
 
 ---
 
 ## API Integration
 
-- [ ] Integrate OpenWeatherMap API
+- [x] Integrate OpenWeatherMap API
 - [ ] Design structure for supporting multiple APIs in the future
 
 ---

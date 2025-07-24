@@ -6,6 +6,7 @@ import { getUserCoords } from "@/utils/getUserCoords";
 import { WeatherByDay, WeatherByHour } from "@/utils/types";
 import { getWeatherByCoords } from "@/utils/getWeatherByCoords";
 import TempChart from "@/components/TempChart";
+import DailyForcastsContainer from "./DailyForcastsContainer";
 
 type Coords = {
   latitude: number;
@@ -76,7 +77,7 @@ function WeatherDashboard() {
           const [hourWeather, dailyWeather] = await getWeatherByCoords(
             coords.latitude,
             coords.longitude,
-            19
+            17
           );
           setWeatherHourArray(hourWeather);
           setWeatherDailyArray(dailyWeather);
@@ -96,20 +97,23 @@ function WeatherDashboard() {
   }, [userCity]);
 
   return (
-    <main className="w-7xl h-[600px] bg-card rounded-2xl p-8 m-2 flex flex-col items-start gap-2">
+    <main className="max-w-7xl bg-card rounded-2xl p-8 m-2 flex flex-col items-start gap-2">
       <Location
         setCoords={setCoords}
         userCity={userCity}
         setUserCity={setUserCity}
       />
       <hr className=" bg-amber-500" />
-      <div className="flex flex-col gap-4 items-start">
-        <HoursForcastContainer
-          weatherArray={weatherHourArray}
-          weatherDailyArray={weatherDailyArray}
-        />
-        <TempChart weatherArray={weatherHourArray} />
+      <div className="w-full overflow-x-auto ">
+        <div className="flex flex-col gap-4 w-max items-start">
+          <HoursForcastContainer
+            weatherArray={weatherHourArray}
+            weatherDailyArray={weatherDailyArray}
+          />
+          <TempChart weatherArray={weatherHourArray} />
+        </div>
       </div>
+      <DailyForcastsContainer weatherDailyArray={weatherDailyArray} />
     </main>
   );
 }

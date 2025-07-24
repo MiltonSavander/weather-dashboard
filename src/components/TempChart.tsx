@@ -12,12 +12,12 @@ const data = [
   { time: "17:00", temperature: 23 },
 ];
 
-function TempChart({ weatherArray }: WeatherByHour[]) {
+function TempChart({ weatherArray }: { weatherArray: WeatherByHour[] }) {
   const minTemp = Math.min(...weatherArray.map((item) => item.temp));
   const maxTemp = Math.max(...weatherArray.map((item) => item.temp));
 
   return (
-    <div className="w-full h-20 pl-[17px] pr-[17px] ">
+    <div className="w-full h-20 pl-[26px] pr-[26px] ">
       <ResponsiveContainer
         width="100%"
         height="100%"

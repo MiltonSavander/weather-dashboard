@@ -13,7 +13,7 @@ interface HoursForcastContainerProps {
 function HoursForcastContainer({ weatherArray, weatherDailyArray }: HoursForcastContainerProps) {
   console.log("this is length of weatherarray", weatherArray.length);
   return (
-    <div className="flex gap-5 bg-gray-900">
+    <div className="flex gap-2 ">
       {weatherArray.map((weather, index) => (
         <HourForcast
           key={index}
