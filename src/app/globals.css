@@ -4,8 +4,8 @@
 :root {
   --background: linear-gradient(to top, #b0dfff, #8bd6ff);
   --foreground: #ededed;
-  --card: rgba(140, 188, 213, 0.7);
-  --card-info: rgba(172, 214, 237, 0.7);
+  --card: rgba(98, 127, 144, 0.7);
+  --card-info: rgba(141, 184, 207, 0.7);
 }
 
 @theme inline {

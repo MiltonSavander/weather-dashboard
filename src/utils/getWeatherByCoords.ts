@@ -56,7 +56,7 @@ export async function getWeatherByCoords(
       temperature2mMax: daily.variables(0)!.valuesArray()!,
       temperature2mMin: daily.variables(1)!.valuesArray()!,
       sunset: [...Array(sunset.valuesInt64Length())].map((_, i) => {
-        const date = new Date((Number(sunset.valuesInt64(i)) + utcOffsetSeconds - 4600) * 1000);
+        const date = new Date((Number(sunset.valuesInt64(i)) + utcOffsetSeconds - 6900) * 1000);
         return formatter.format(date);
       }),
       sunrise: [...Array(sunrise.valuesInt64Length())].map((_, i) => {
