@@ -6,6 +6,8 @@
   --foreground: #ededed;
   --card: rgba(98, 127, 144, 0.7);
   --card-info: rgba(141, 184, 207, 0.7);
+  --card-solid: rgba(98, 127, 144, 1);
+  --card-info-solid: rgba(141, 184, 207, 1);
 }
 
 @theme inline {
@@ -13,8 +15,11 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-info: var(--card-info);
+  --color-card-solid: var(--card-solid);
+  --color-card-info-solid: var(--card-info-solid);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +28,8 @@
     --foreground: #ededed;
     --card: rgba(46, 55, 73, 0.7);
     --card-info: rgba(74, 87, 113, 0.7);
+    --card-solid: rgba(46, 55, 73, 1);
+    --card-info-solid: rgba(74, 87, 113, 1);
   }
 }
 

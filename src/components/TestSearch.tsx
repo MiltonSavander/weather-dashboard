@@ -114,11 +114,11 @@ export default function LocationSearchBox({
   }, []);
 
   return (
-    <div className="relative w-80">
+    <div className="relative w-full flex gap-4">
       <input
         ref={inputRef}
         type="text"
-        className="w-full border border-gray-300 rounded p-2"
+        className="w-80 border border-gray-300 rounded p-2"
         placeholder={currentLocation ? currentLocation : userCity ? userCity : "Search location..."}
         value={query}
         onChange={handleChange}
@@ -131,11 +131,20 @@ export default function LocationSearchBox({
         }}
         autoComplete="off"
       />
+      <div className="flex justify-center items-center">
+        <img
+          className="size-8"
+          src="/location-icon.svg"
+          alt="location icon"
+        />
+      </div>
       {loading && (
-        <div className="absolute top-full text-black left-0 right-0 bg-white p-2">Loading...</div>
+        <div className="absolute w-80 top-full text-black left-0 right-0 bg-white p-2">
+          Loading...
+        </div>
       )}
       {suggestions.length > 0 && (
-        <ul className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-auto z-10">
+        <ul className="absolute w-80 top-full left-0 right-0 bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-auto z-10">
           {suggestions.map((suggestion, idx) => (
             <li
               key={idx}
