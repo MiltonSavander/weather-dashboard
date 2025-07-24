@@ -7,6 +7,7 @@ import { WeatherByDay, WeatherByHour } from "@/utils/types";
 import { getWeatherByCoords } from "@/utils/getWeatherByCoords";
 import TempChart from "@/components/TempChart";
 import DailyForcastsContainer from "./DailyForcastsContainer";
+import LocationSearchBox from "./TestSearch";
 
 type Coords = {
   latitude: number;
@@ -77,7 +78,7 @@ function WeatherDashboard() {
           const [hourWeather, dailyWeather] = await getWeatherByCoords(
             coords.latitude,
             coords.longitude,
-            10
+            24
           );
           setWeatherHourArray(hourWeather);
           setWeatherDailyArray(dailyWeather);
@@ -91,21 +92,45 @@ function WeatherDashboard() {
   }, [coords]);
 
   useEffect(() => {
-    if (userCity) {
-      console.log(userCity);
-    }
-  }, [userCity]);
+    const container = document.getElementById("scrollable-container");
+    if (!container) return;
+
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY === 0) return;
+
+      // Let browser handle horizontal (e.g., shift+wheel or touchpad)
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+
+      e.preventDefault(); // prevent vertical scroll
+      container.scrollLeft += e.deltaY; // native feel, no smooth animation
+    };
+
+    container.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("wheel", onWheel);
+    };
+  }, []);
+
+  const handleLocationSelect = (lat: number, lon: number, name: string) => {
+    console.log("Selected:", { lat, lon, name });
+    setCoords({ latitude: lat, longitude: lon });
+  };
 
   return (
-    <div className="w-full max-w-7xl bg-card rounded-2xl p-8 flex flex-col items-start gap-2">
-      <Location
+    <div className="w-full max-w-7xl bg-card rounded-2xl p-8 flex flex-col items-start gap-2 ">
+      {/* <Location
         setCoords={setCoords}
         userCity={userCity}
         setUserCity={setUserCity}
-      />
+      /> */}
+      <LocationSearchBox onSelectLocation={handleLocationSelect} />
       <hr className=" bg-amber-500" />
-      <div className="scrollable-container w-full max-w-full overflow-x-auto ">
-        <div className="wrapper  min-w-max">
+      <div
+        className="scrollable-container scroll-smooth w-full max-w-full overflow-x-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info"
+        id="scrollable-container"
+      >
+        <div className="wrapper min-w-max">
           <div className="flex flex-col gap-4 w-max">
             <HoursForcastContainer
               weatherArray={weatherHourArray}

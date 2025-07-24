@@ -12,7 +12,7 @@ function DailyForcast({ index, weatherByDay }: { index: number; weatherByDay: We
   const todayLabel = rtf.format(0, "day");
   const todayLabelFirstLetterUpper = todayLabel.charAt(0).toUpperCase() + todayLabel.slice(1);
   return (
-    <div className="flex flex-row justify-between items-center p-1 pr-4 pl-4 rounded-2xl bg-gray-600">
+    <div className="flex flex-row justify-between items-center p-1 pr-4 pl-4 rounded-2xl bg-card-info">
       <div>{index === 0 ? todayLabelFirstLetterUpper : weekday}</div>
       <div className="flex items-center gap-2">
         {getHoursWeatherIconfromCode(weatherByDay.wetherCode)}

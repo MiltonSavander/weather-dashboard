@@ -24,7 +24,7 @@ function Location({ setCoords, userCity, setUserCity }: LocationProps) {
   };
 
   return (
-    <div className="h-10 w-full bg-amber-700 flex justify-between items-center">
+    <div className="h-10 w-full bg-card-info rounded-lg flex justify-between items-center">
       <div className="flex gap-4 items-center">
         <div className="flex justify-center items-center">
           <img
@@ -38,9 +38,9 @@ function Location({ setCoords, userCity, setUserCity }: LocationProps) {
       <div className="relative">
         <button
           onClick={() => setDropdownOpen((prev) => !prev)}
-          className="bg-white text-black px-2 py-1 rounded hover:bg-gray-200"
+          className="bg-card px-2 py-1 rounded-3xl hover:bg-gray-200"
         >
-          Change
+          ...
         </button>
 
         {dropdownOpen && (
