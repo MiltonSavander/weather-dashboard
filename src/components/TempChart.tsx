@@ -12,9 +12,9 @@ const data = [
   { time: "17:00", temperature: 23 },
 ];
 
-function TempChart({ weatherArray }: { weatherArray: WeatherByHour[] }) {
-  const minTemp = Math.min(...weatherArray.map((item) => item.temp));
-  const maxTemp = Math.max(...weatherArray.map((item) => item.temp));
+function TempChart({ weatherHourArray }: { weatherHourArray: WeatherByHour[] }) {
+  const minTemp = Math.min(...weatherHourArray.map((item) => item.temp));
+  const maxTemp = Math.max(...weatherHourArray.map((item) => item.temp));
 
   return (
     <div className="w-full h-20 mb-4 pl-[26px] pr-[26px] ">
@@ -22,7 +22,7 @@ function TempChart({ weatherArray }: { weatherArray: WeatherByHour[] }) {
         width="100%"
         height="100%"
       >
-        <LineChart data={weatherArray}>
+        <LineChart data={weatherHourArray}>
           <YAxis
             domain={[minTemp, maxTemp]}
             tick={false}

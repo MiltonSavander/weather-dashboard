@@ -6,15 +6,19 @@ import { Coords } from "@/utils/types";
 import { WeatherByHour, WeatherByDay } from "@/utils/types";
 
 interface HoursForcastContainerProps {
-  weatherArray: WeatherByHour[];
+  weatherHourArray: WeatherByHour[];
   weatherDailyArray: WeatherByDay[];
 }
 
-function HoursForcastContainer({ weatherArray, weatherDailyArray }: HoursForcastContainerProps) {
-  console.log("this is length of weatherarray", weatherArray.length);
+function HoursForcastContainer({
+  weatherHourArray,
+  weatherDailyArray,
+}: HoursForcastContainerProps) {
+  console.log("this is length of weatherarray", weatherHourArray.length);
+  console.log("faklsdodghsdlghsdlkg", weatherDailyArray);
   return (
     <div className="flex gap-2 ">
-      {weatherArray.map((weather, index) => (
+      {weatherHourArray.map((weather, index) => (
         <HourForcast
           key={index}
           time={weather.time}

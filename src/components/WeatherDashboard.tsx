@@ -136,10 +136,10 @@ function WeatherDashboard() {
         <div className="wrapper min-w-max">
           <div className="flex flex-col gap-4 w-max">
             <HoursForcastContainer
-              weatherArray={weatherHourArray}
+              weatherHourArray={weatherHourArray}
               weatherDailyArray={weatherDailyArray}
             />
-            <TempChart weatherArray={weatherHourArray} />
+            <TempChart weatherHourArray={weatherHourArray} />
           </div>
         </div>
       </div>

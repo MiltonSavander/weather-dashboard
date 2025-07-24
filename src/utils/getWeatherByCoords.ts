@@ -64,7 +64,7 @@ export async function getWeatherByCoords(
       weatherCode: daily.variables(4)!.valuesArray()!,
     },
   };
-
+  console.log("fosrodah", sunset);
   console.log("this is weatherData", weatherData);
 
   const now = new Date();

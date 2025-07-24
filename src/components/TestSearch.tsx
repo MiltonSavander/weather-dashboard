@@ -11,7 +11,7 @@ export default function LocationSearchBox({
   userCity,
 }: {
   onSelectLocation: (lat: number, lon: number, name: string) => void;
-  userCity: string;
+  userCity: string | null;
 }) {
   const [query, setQuery] = useState("");
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
