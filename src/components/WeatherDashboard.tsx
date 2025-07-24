@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Location from "@/components/Location";
 import HoursForcastContainer from "@/components/HoursForcastContainer";
 import { getUserCoords } from "@/utils/getUserCoords";
 import { WeatherByDay, WeatherByHour } from "@/utils/types";
@@ -83,7 +82,7 @@ function WeatherDashboard() {
           setWeatherHourArray(hourWeather);
           setWeatherDailyArray(dailyWeather);
           console.log(hourWeather);
-        } catch (err: unknown) {
+        } catch (err) {
           console.error("Failed to get weather by coords", err);
         }
       };
@@ -119,11 +118,6 @@ function WeatherDashboard() {
 
   return (
     <div className="w-full max-w-7xl bg-card rounded-2xl p-8 flex flex-col items-start gap-2 ">
-      {/* <Location
-        setCoords={setCoords}
-        userCity={userCity}
-        setUserCity={setUserCity}
-      /> */}
       <LocationSearchBox
         onSelectLocation={handleLocationSelect}
         userCity={userCity}
