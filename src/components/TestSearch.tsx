@@ -114,51 +114,55 @@ export default function LocationSearchBox({
   }, []);
 
   return (
-    <div className="relative w-full flex gap-4">
-      <input
-        ref={inputRef}
-        type="text"
-        className="w-80 border border-gray-300 rounded p-2"
-        placeholder={currentLocation ? currentLocation : userCity ? userCity : "Search location..."}
-        value={query}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        onFocus={() => {
-          setQuery("");
-          setSelectedValue(null);
-          setSuggestions([]);
-          setHighlightIndex(-1);
-        }}
-        autoComplete="off"
-      />
-      <div className="flex justify-center items-center">
-        <img
-          className="size-8"
-          src="/location-icon.svg"
-          alt="location icon"
+    <div className="w-full flex justify-center items-center">
+      <div className="relative flex gap-4">
+        <input
+          ref={inputRef}
+          type="text"
+          className="w-80 border border-card-info rounded-full p-2 px-4 focus:outline-none focus:border-highlight "
+          placeholder={
+            currentLocation ? currentLocation : userCity ? userCity : "Search location..."
+          }
+          value={query}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onFocus={() => {
+            setQuery("");
+            setSelectedValue(null);
+            setSuggestions([]);
+            setHighlightIndex(-1);
+          }}
+          autoComplete="off"
         />
+        <button className="h-[42px] w-[42px] bg-card-info cursor-pointer hover:bg-highlight select-none flex justify-center items-center border border-card-info rounded-full">
+          <img
+            className="size-8"
+            src="/location-icon.svg"
+            alt="location icon"
+          />
+        </button>
+        {loading && (
+          <div className="absolute w-80 top-full rounded-xl text-foreground left-0 right-0 bg-dropdown-bg p-2">
+            Loading...
+          </div>
+        )}
+        {suggestions.length > 0 && (
+          <ul className="absolute w-80 top-full left-0 right-0 bg-dropdown-bg rounded-xl mt-1 max-h-120 overflow-y-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info z-10">
+            {suggestions.map((suggestion, idx) => (
+              <li
+                key={idx}
+                className={`p-2 text-foreground cursor-pointer ${
+                  idx === highlightIndex ? "bg-highlight" : "hover:bg-highlight"
+                }`}
+                onClick={() => handleSelect(suggestion)}
+                onMouseEnter={() => setHighlightIndex(idx)} // highlight on hover
+              >
+                {suggestion.display_name}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      {loading && (
-        <div className="absolute w-80 top-full text-black left-0 right-0 bg-white p-2">
-          Loading...
-        </div>
-      )}
-      {suggestions.length > 0 && (
-        <ul className="absolute w-80 top-full left-0 right-0 bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-auto z-10">
-          {suggestions.map((suggestion, idx) => (
-            <li
-              key={idx}
-              className={`p-2 text-black cursor-pointer ${
-                idx === highlightIndex ? "bg-blue-200" : "hover:bg-gray-200"
-              }`}
-              onClick={() => handleSelect(suggestion)}
-              onMouseEnter={() => setHighlightIndex(idx)} // highlight on hover
-            >
-              {suggestion.display_name}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 }

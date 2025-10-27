@@ -122,7 +122,7 @@ function WeatherDashboard() {
         onSelectLocation={handleLocationSelect}
         userCity={userCity}
       />
-      <hr className=" bg-amber-500" />
+      <hr className="h-[2px] w-full my-2 bg-card-info border-0" />
       <div
         className="scrollable-container scroll-smooth w-full max-w-full overflow-x-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info"
         id="scrollable-container"

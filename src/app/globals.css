@@ -4,10 +4,12 @@
 :root {
   --background: linear-gradient(to top, #b0dfff, #8bd6ff);
   --foreground: #ededed;
-  --card: rgba(98, 127, 144, 0.7);
+  --card: rgba(66, 81, 88, 0.7);
   --card-info: rgba(141, 184, 207, 0.7);
   --card-solid: rgba(98, 127, 144, 1);
   --card-info-solid: rgba(141, 184, 207, 1);
+  --highlight: rgb(153, 198, 223);
+  --dropdown-bg: rgba(141, 184, 207, 1);
 }
 
 @theme inline {
@@ -17,6 +19,8 @@
   --color-card-info: var(--card-info);
   --color-card-solid: var(--card-solid);
   --color-card-info-solid: var(--card-info-solid);
+  --color-highlight: var(--highlight);
+  --color-dropdown-bg: var(--dropdown-bg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
@@ -30,6 +34,8 @@
     --card-info: rgba(74, 87, 113, 0.7);
     --card-solid: rgba(46, 55, 73, 1);
     --card-info-solid: rgba(74, 87, 113, 1);
+    --highlight: rgba(118, 128, 147, 1);
+    --dropdown-bg: rgba(74, 87, 113, 1);
   }
 }
 
