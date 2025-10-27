@@ -138,16 +138,18 @@ function WeatherDashboard() {
           query={query}
           setQuery={setQuery}
         />
-        <button
-          className="h-[42px] w-[42px] bg-card-info cursor-pointer hover:bg-highlight select-none flex justify-center items-center border border-card-info rounded-full"
-          onClick={handleOnClick}
-        >
-          <img
-            className="size-8"
-            src="/location-icon.svg"
-            alt="location icon"
-          />
-        </button>
+        <div>
+          <button
+            className="h-[42px] w-[42px] bg-card-info cursor-pointer hover:bg-highlight select-none flex justify-center items-center border border-card-info rounded-full"
+            onClick={handleOnClick}
+          >
+            <img
+              className="size-8"
+              src="/location-icon.svg"
+              alt="location icon"
+            />
+          </button>
+        </div>
       </div>
       <hr className="h-[2px] w-full my-2 bg-card-info border-0" />
       <div

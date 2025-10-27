@@ -41,11 +41,7 @@ export default function LocationSearchBox({
     debounceTimeout.current = setTimeout(async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-            query
-          )}&format=json&addressdetails=1&limit=5`
-        );
+        const response = await fetch(`/api/geocode?q=${encodeURIComponent(query)}`);
         const data: LocationSuggestion[] = await response.json();
         setSuggestions(data);
         setHighlightIndex(-1);
@@ -121,11 +117,11 @@ export default function LocationSearchBox({
   }, []);
 
   return (
-    <div className="relative flex">
+    <div className="relative w-80 flex">
       <input
         ref={inputRef}
         type="text"
-        className="w-80 border border-card-info rounded-full p-2 px-4 focus:outline-none focus:border-highlight "
+        className="w-full border border-card-info rounded-full p-2 px-4 focus:outline-none focus:border-highlight "
         placeholder={currentLocation ? currentLocation : userCity ? userCity : "Search location..."}
         value={query}
         onChange={handleChange}
@@ -139,12 +135,12 @@ export default function LocationSearchBox({
         autoComplete="off"
       />
       {loading && (
-        <div className="absolute w-80 top-full rounded-xl text-foreground left-0 right-0 bg-dropdown-bg p-2">
+        <div className="absolute w-full mt-1 top-full rounded-xl text-foreground left-0 right-0 bg-dropdown-bg p-2">
           Loading...
         </div>
       )}
       {suggestions.length > 0 && (
-        <ul className="absolute w-80 top-full left-0 right-0 bg-dropdown-bg rounded-xl mt-1 max-h-120 overflow-y-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info z-10">
+        <ul className="absolute w-full top-full left-0 right-0 bg-dropdown-bg rounded-xl mt-1 max-h-120 overflow-y-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info z-10">
           {suggestions.map((suggestion, idx) => (
             <li
               key={idx}

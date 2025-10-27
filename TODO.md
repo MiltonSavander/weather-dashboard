@@ -22,23 +22,5 @@
 
 ---
 
-## API Integration
+- [ ] textsearch dynamic
 
-- [x] Integrate OpenWeatherMap API
-- [ ] Design structure for supporting multiple APIs in the future
-
----
-
-## Future Enhancements
-
-- [ ] Add support for additional weather/data APIs
-- [ ] Improve UI/UX for dashboard components
-- [ ] Add unit and integration tests
-
----
-
-## Notes
-
-- Prioritize modular and reusable components.
-- Keep API logic separate from UI components.
-- Document all components and API integrations.
