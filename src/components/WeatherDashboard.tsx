@@ -15,58 +15,61 @@ type Coords = {
 
 function WeatherDashboard() {
   const [coords, setCoords] = useState<Coords | null>(null);
-  const [userCity, setUserCity] = useState<string | null>(null);
+  const [userCity, setUserCity] = useState<string>("null");
   const [weatherHourArray, setWeatherHourArray] = useState<WeatherByHour[]>([]);
   const [weatherDailyArray, setWeatherDailyArray] = useState<WeatherByDay[]>([]);
+  const [currentLocation, setCurrentLocation] = useState<string>("");
+  const [query, setQuery] = useState("");
 
   const [foundCoords, setFoundCoords] = useState<true | false>(false);
 
-  useEffect(() => {
-    const fetchCoords = async () => {
-      try {
-        const position = await getUserCoords();
-        setCoords({
-          latitude: position.latitude,
-          longitude: position.longitude,
-        });
-        setFoundCoords(true);
-        console.log("position", position);
-      } catch (err) {
-        console.error("Failed to getUserCoords", err);
-      }
-    };
+  const fetchCoords = async () => {
+    try {
+      const position = await getUserCoords();
+      setCoords({
+        latitude: position.latitude,
+        longitude: position.longitude,
+      });
+      setFoundCoords(true);
+      console.log("position", position);
+    } catch (err) {
+      console.error("Failed to getUserCoords", err);
+    }
+  };
 
+  useEffect(() => {
     fetchCoords();
   }, []);
 
-  useEffect(() => {
-    const fetchCity = async () => {
-      try {
-        if (coords !== null) {
-          const res = await fetch(
-            `/api/reverse-geocode?lat=${coords.latitude}&lon=${coords.longitude}`
-          );
-          const data = await res.json();
+  const fetchCity = async () => {
+    try {
+      if (coords !== null) {
+        const res = await fetch(
+          `/api/reverse-geocode?lat=${coords.latitude}&lon=${coords.longitude}`
+        );
+        const data = await res.json();
 
-          const properties = data.features?.[0]?.properties?.geocoding;
+        const properties = data.features?.[0]?.properties?.geocoding;
 
-          const locationName =
-            properties.city ||
-            properties.town ||
-            properties.village ||
-            properties.hamlet ||
-            properties.state ||
-            properties.country ||
-            "Unknown location";
+        const locationName =
+          properties.city ||
+          properties.town ||
+          properties.village ||
+          properties.hamlet ||
+          properties.state ||
+          properties.country ||
+          "Unknown location";
 
-          setUserCity(locationName);
-          console.log("hello", data);
-        }
-      } catch (err) {
-        setUserCity("Could not find location");
-        console.error("Failed to get city from coords", err);
+        setUserCity(locationName);
+        console.log("hello", data);
       }
-    };
+    } catch (err) {
+      setUserCity("Could not find location");
+      console.error("Failed to get city from coords", err);
+    }
+  };
+
+  useEffect(() => {
     fetchCity();
   }, [foundCoords]);
 
@@ -90,6 +93,7 @@ function WeatherDashboard() {
     }
   }, [coords]);
 
+  // manages sroll function on desctop for hour forcast
   useEffect(() => {
     const container = document.getElementById("scrollable-container");
     if (!container) return;
@@ -116,12 +120,35 @@ function WeatherDashboard() {
     setCoords({ latitude: lat, longitude: lon });
   };
 
+  const handleOnClick = () => {
+    fetchCoords();
+    setCurrentLocation(userCity);
+    setQuery("");
+    console.log("userCity", userCity);
+  };
+
   return (
     <div className="w-full max-w-7xl bg-card rounded-2xl p-8 flex flex-col items-start gap-2 ">
-      <LocationSearchBox
-        onSelectLocation={handleLocationSelect}
-        userCity={userCity}
-      />
+      <div className="w-full flex justify-center items-center gap-4">
+        <LocationSearchBox
+          onSelectLocation={handleLocationSelect}
+          userCity={userCity}
+          currentLocation={currentLocation}
+          setCurrentLocation={setCurrentLocation}
+          query={query}
+          setQuery={setQuery}
+        />
+        <button
+          className="h-[42px] w-[42px] bg-card-info cursor-pointer hover:bg-highlight select-none flex justify-center items-center border border-card-info rounded-full"
+          onClick={handleOnClick}
+        >
+          <img
+            className="size-8"
+            src="/location-icon.svg"
+            alt="location icon"
+          />
+        </button>
+      </div>
       <hr className="h-[2px] w-full my-2 bg-card-info border-0" />
       <div
         className="scrollable-container scroll-smooth w-full max-w-full overflow-x-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info"

@@ -9,16 +9,23 @@ type LocationSuggestion = {
 export default function LocationSearchBox({
   onSelectLocation,
   userCity,
+  currentLocation,
+  setCurrentLocation,
+  query,
+  setQuery,
 }: {
   onSelectLocation: (lat: number, lon: number, name: string) => void;
   userCity: string | null;
+  currentLocation: string | null;
+  setCurrentLocation: React.Dispatch<React.SetStateAction<string>>;
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  const [query, setQuery] = useState("");
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<LocationSuggestion[]>([]);
   const [loading, setLoading] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState<number>(-1);
-  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
+
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -114,55 +121,44 @@ export default function LocationSearchBox({
   }, []);
 
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="relative flex gap-4">
-        <input
-          ref={inputRef}
-          type="text"
-          className="w-80 border border-card-info rounded-full p-2 px-4 focus:outline-none focus:border-highlight "
-          placeholder={
-            currentLocation ? currentLocation : userCity ? userCity : "Search location..."
-          }
-          value={query}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          onFocus={() => {
-            setQuery("");
-            setSelectedValue(null);
-            setSuggestions([]);
-            setHighlightIndex(-1);
-          }}
-          autoComplete="off"
-        />
-        <button className="h-[42px] w-[42px] bg-card-info cursor-pointer hover:bg-highlight select-none flex justify-center items-center border border-card-info rounded-full">
-          <img
-            className="size-8"
-            src="/location-icon.svg"
-            alt="location icon"
-          />
-        </button>
-        {loading && (
-          <div className="absolute w-80 top-full rounded-xl text-foreground left-0 right-0 bg-dropdown-bg p-2">
-            Loading...
-          </div>
-        )}
-        {suggestions.length > 0 && (
-          <ul className="absolute w-80 top-full left-0 right-0 bg-dropdown-bg rounded-xl mt-1 max-h-120 overflow-y-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info z-10">
-            {suggestions.map((suggestion, idx) => (
-              <li
-                key={idx}
-                className={`p-2 text-foreground cursor-pointer ${
-                  idx === highlightIndex ? "bg-highlight" : "hover:bg-highlight"
-                }`}
-                onClick={() => handleSelect(suggestion)}
-                onMouseEnter={() => setHighlightIndex(idx)} // highlight on hover
-              >
-                {suggestion.display_name}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+    <div className="relative flex">
+      <input
+        ref={inputRef}
+        type="text"
+        className="w-80 border border-card-info rounded-full p-2 px-4 focus:outline-none focus:border-highlight "
+        placeholder={currentLocation ? currentLocation : userCity ? userCity : "Search location..."}
+        value={query}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onFocus={() => {
+          setQuery("");
+          setSelectedValue(null);
+          setSuggestions([]);
+          setHighlightIndex(-1);
+        }}
+        autoComplete="off"
+      />
+      {loading && (
+        <div className="absolute w-80 top-full rounded-xl text-foreground left-0 right-0 bg-dropdown-bg p-2">
+          Loading...
+        </div>
+      )}
+      {suggestions.length > 0 && (
+        <ul className="absolute w-80 top-full left-0 right-0 bg-dropdown-bg rounded-xl mt-1 max-h-120 overflow-y-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info z-10">
+          {suggestions.map((suggestion, idx) => (
+            <li
+              key={idx}
+              className={`p-2 text-foreground cursor-pointer ${
+                idx === highlightIndex ? "bg-highlight" : "hover:bg-highlight"
+              }`}
+              onClick={() => handleSelect(suggestion)}
+              onMouseEnter={() => setHighlightIndex(idx)} // highlight on hover
+            >
+              {suggestion.display_name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
