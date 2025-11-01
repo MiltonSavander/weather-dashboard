@@ -17,7 +17,7 @@ type Coords = {
 
 function WeatherDashboard() {
   const [coords, setCoords] = useState<Coords | null>(null);
-  const [userCity, setUserCity] = useState<string>("null");
+  const [userCity, setUserCity] = useState<string>("");
   const [weatherHourArray, setWeatherHourArray] = useState<WeatherByHour[]>([]);
   const [weatherDailyArray, setWeatherDailyArray] = useState<WeatherByDay[]>([]);
   const [currentLocation, setCurrentLocation] = useState<string>("");
@@ -33,7 +33,6 @@ function WeatherDashboard() {
         longitude: position.longitude,
       });
       setFoundCoords(true);
-      console.log("position", position);
     } catch (err) {
       console.error("Failed to getUserCoords", err);
     }
@@ -63,7 +62,6 @@ function WeatherDashboard() {
           "Unknown location";
 
         setUserCity(locationName);
-        console.log("hello", data);
       }
     } catch (err) {
       setUserCity("Could not find location");
@@ -86,7 +84,6 @@ function WeatherDashboard() {
           );
           setWeatherHourArray(hourWeather);
           setWeatherDailyArray(dailyWeather);
-          console.log(hourWeather);
         } catch (err) {
           console.error("Failed to get weather by coords", err);
         }
@@ -118,7 +115,6 @@ function WeatherDashboard() {
   }, [weatherHourArray]);
 
   const handleLocationSelect = (lat: number, lon: number, name: string) => {
-    console.log("Selected:", { lat, lon, name });
     setCoords({ latitude: lat, longitude: lon });
   };
 
@@ -126,7 +122,6 @@ function WeatherDashboard() {
     fetchCoords();
     setCurrentLocation(userCity);
     setQuery("");
-    console.log("userCity", userCity);
   };
 
   return (
