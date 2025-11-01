@@ -12,8 +12,6 @@ function HoursForcastContainer({
   weatherHourArray,
   weatherDailyArray,
 }: HoursForcastContainerProps) {
-  console.log("this is length of weatherarray", weatherHourArray.length);
-  console.log("faklsdodghsdlghsdlkg", weatherDailyArray);
   return (
     <div className="flex gap-2 ">
       {weatherHourArray.map((weather, index) => (

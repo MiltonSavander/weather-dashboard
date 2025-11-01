@@ -121,7 +121,7 @@ export default function LocationSearchBox({
       <input
         ref={inputRef}
         type="text"
-        className="w-full border border-card-info rounded-full p-2 px-4 focus:outline-none focus:border-highlight "
+        className="w-full border border-card-info text-foreground rounded-full p-2 px-4 focus:outline-none focus:border-highlight "
         placeholder={currentLocation ? currentLocation : userCity ? userCity : "Search location..."}
         value={query}
         onChange={handleChange}

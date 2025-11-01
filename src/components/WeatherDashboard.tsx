@@ -7,6 +7,8 @@ import { getWeatherByCoords } from "@/utils/getWeatherByCoords";
 import TempChart from "@/components/TempChart";
 import DailyForcastsContainer from "./DailyForcastsContainer";
 import LocationSearchBox from "./TestSearch";
+import PromptUser from "./PromptUser";
+import Loading from "./Loading";
 
 type Coords = {
   latitude: number;
@@ -15,7 +17,7 @@ type Coords = {
 
 function WeatherDashboard() {
   const [coords, setCoords] = useState<Coords | null>(null);
-  const [userCity, setUserCity] = useState<string>("null");
+  const [userCity, setUserCity] = useState<string>("");
   const [weatherHourArray, setWeatherHourArray] = useState<WeatherByHour[]>([]);
   const [weatherDailyArray, setWeatherDailyArray] = useState<WeatherByDay[]>([]);
   const [currentLocation, setCurrentLocation] = useState<string>("");
@@ -31,7 +33,6 @@ function WeatherDashboard() {
         longitude: position.longitude,
       });
       setFoundCoords(true);
-      console.log("position", position);
     } catch (err) {
       console.error("Failed to getUserCoords", err);
     }
@@ -61,7 +62,6 @@ function WeatherDashboard() {
           "Unknown location";
 
         setUserCity(locationName);
-        console.log("hello", data);
       }
     } catch (err) {
       setUserCity("Could not find location");
@@ -84,7 +84,6 @@ function WeatherDashboard() {
           );
           setWeatherHourArray(hourWeather);
           setWeatherDailyArray(dailyWeather);
-          console.log(hourWeather);
         } catch (err) {
           console.error("Failed to get weather by coords", err);
         }
@@ -116,7 +115,6 @@ function WeatherDashboard() {
   }, []);
 
   const handleLocationSelect = (lat: number, lon: number, name: string) => {
-    console.log("Selected:", { lat, lon, name });
     setCoords({ latitude: lat, longitude: lon });
   };
 
@@ -124,7 +122,6 @@ function WeatherDashboard() {
     fetchCoords();
     setCurrentLocation(userCity);
     setQuery("");
-    console.log("userCity", userCity);
   };
 
   return (
@@ -152,21 +149,29 @@ function WeatherDashboard() {
         </div>
       </div>
       <hr className="h-[2px] w-full my-2 bg-card-info border-0" />
-      <div
-        className="scrollable-container scroll-smooth w-full max-w-full overflow-x-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info"
-        id="scrollable-container"
-      >
-        <div className="wrapper min-w-max">
-          <div className="flex flex-col gap-4 w-max">
-            <HoursForcastContainer
-              weatherHourArray={weatherHourArray}
-              weatherDailyArray={weatherDailyArray}
-            />
-            <TempChart weatherHourArray={weatherHourArray} />
+      {weatherHourArray.length > 0 ? (
+        <>
+          <div
+            className="scrollable-container scroll-smooth w-full max-w-full overflow-x-auto scrollbar-thin scrollbar-track-card scrollbar-thumb-card-info"
+            id="scrollable-container"
+          >
+            <div className="wrapper min-w-max">
+              <div className="flex flex-col gap-4 w-max">
+                <HoursForcastContainer
+                  weatherHourArray={weatherHourArray}
+                  weatherDailyArray={weatherDailyArray}
+                />
+                <TempChart weatherHourArray={weatherHourArray} />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <DailyForcastsContainer weatherDailyArray={weatherDailyArray} />
+          <DailyForcastsContainer weatherDailyArray={weatherDailyArray} />
+        </>
+      ) : coords ? (
+        <Loading />
+      ) : (
+        <PromptUser />
+      )}
     </div>
   );
 }

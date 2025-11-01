@@ -66,9 +66,6 @@ export async function getWeatherByCoords(
       weatherCode: daily.variables(4)!.valuesArray()!,
     },
   };
-  console.log("utcOffset in seconds", utcOffsetSeconds);
-  console.log("fosrodah", sunset);
-  console.log("this is weatherData", weatherData);
 
   const now = new Date();
   now.setHours(now.getHours() - 1);
@@ -98,8 +95,6 @@ export async function getWeatherByCoords(
       wetherCode: weatherData.daily.weatherCode[i],
     });
   }
-
-  console.log("this is weatherDailyArray", weatherDailyArray);
 
   return [weatherHourArray, weatherDailyArray];
 }

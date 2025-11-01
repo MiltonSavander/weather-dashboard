@@ -22,5 +22,7 @@
 
 ---
 
-- [ ] textsearch dynamic
+- [x] textsearch dynamic
+- [ ] prompt user to enable geolocation or search in input field
+- [ ] add loading component
 
